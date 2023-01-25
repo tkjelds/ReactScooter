@@ -9,7 +9,7 @@ import React, { SetStateAction } from 'react';
 import type {PropsWithChildren} from 'react';
 import {
   SafeAreaView,
-  Button,
+  Pressable,
   ScrollView,
   StatusBar,
   Text,
@@ -24,21 +24,21 @@ import {
   LearnMoreLinks,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import { Scooter } from './Model/Scooter';
 
-
-interface IEditTextField {
+interface EditTextFieldProps {
   onSearch: React.Dispatch<React.SetStateAction<string>>
   TextPrompt: string
   Text: string
 }
 
-interface ILogButton {
+interface LogButtonProps {
   Title:string
   LogFunc: Function
 }
-const EditTextField = (Props : IEditTextField) => {
+const EditTextField = (Props : EditTextFieldProps) => {
   return(
-      <TextInput className='bg-slate-300 mx-20 mb-2'
+      <TextInput className='bg-slate-200 mx-20 mb-2 rounded-md border-spacing-0 border-dashed border-2 border-purple-900'
       onChangeText={Props.onSearch}
       placeholder={Props.TextPrompt}
       value={Props.Text}
@@ -46,31 +46,33 @@ const EditTextField = (Props : IEditTextField) => {
   );
 }
 
-const LogButton = (Props:ILogButton) => {
+const LogButton = (Props:LogButtonProps) => {
   return(
-    <Button 
-    title = {Props.Title}
-    onPress = {Props.LogFunc}/>
+    <Pressable onPress={Props.LogFunc} className='bg-purple-700 rounded-sm w-32 h-8 self-center ml-28 border-2 border-purple-900'>
+      <Text className='self-center my-1 border-1 text-white'>{Props.Title}</Text>
+    </Pressable>
   )
 }
 
 
-const App: JSX.Element = () => {
+function App() {
   const [ScooterID, ScooterIDSetter] = React.useState('');
   const [Location, LocationSetter] = React.useState('');
 
   function LogScooter() {
     if (ScooterID !== "" && Location !== "") {
-      console.log('ScooterID : ' + ScooterID.toString() + ' Location'+ Location.toString())
-      ScooterIDSetter("")
-      LocationSetter("")
-    } else {console.log("LMAO")}
+      let scoot = new Scooter(ScooterID, Location)
+      console.log(scoot.ToString())
+      ScooterIDSetter("");
+      LocationSetter("");
+    } else { console.log("LMAO"); }
   }
+
   return (
-    <SafeAreaView className='py-200 pt-52'>
-    <EditTextField  TextPrompt={"Enter ScooterID"} onSearch={ScooterIDSetter} Text={ScooterID}/>
-    <EditTextField TextPrompt={"Enter Location"} onSearch={LocationSetter} Text={Location}/>
-    <LogButton className='bg-black mx-3'  Title={"Log Me!"} LogFunc={LogScooter}/>
+    <SafeAreaView className='py-200 pt-56 pb-96 bg-yellow-300 fill'>
+      <EditTextField TextPrompt={"Enter ScooterID"} onSearch={ScooterIDSetter} Text={ScooterID} />
+      <EditTextField TextPrompt={"Enter Location"} onSearch={LocationSetter} Text={Location} />
+      <LogButton Title={"Log Me!"} LogFunc={LogScooter} />
     </SafeAreaView>
   );
 }
