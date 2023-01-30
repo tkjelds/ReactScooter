@@ -1,6 +1,8 @@
 import React, {useEffect} from 'react';
 import {Pressable, SafeAreaView, Text, TextInput, View} from 'react-native';
-import {Props} from '../App';
+//import {Props} from '../App';
+import Snackbar from 'react-native-snackbar';
+import {Scooter} from '../Model/Scooter';
 
 interface EditTextFieldProps {
   onSearch: React.Dispatch<React.SetStateAction<string>>;
@@ -37,7 +39,14 @@ const LogButton = (LogButtonProps: LogButtonProps) => {
   );
 };
 
-export function LogInScreen({navigation}: Props) {
+function showScooterSnackBar(scooter: Scooter): void {
+  Snackbar.show({
+    text: scooter.ToString(),
+    duration: Snackbar.LENGTH_SHORT,
+  });
+}
+
+export function LogInScreen() {
   useEffect(() => {}, []);
   const [ScooterID, ScooterIDSetter] = React.useState('');
   const [Location, LocationSetter] = React.useState('');
@@ -67,7 +76,8 @@ export function LogInScreen({navigation}: Props) {
         />
         <LogButton
           Title={'Log Me!'}
-          LogFunc={() => navigation.navigate('TestNavigationScreen')}
+          //LogFunc={() => navigation.navigate('TestNavigationScreen')}
+          LogFunc={() => showScooterSnackBar(new Scooter(ScooterID, Location))}
         />
       </SafeAreaView>
     </View>

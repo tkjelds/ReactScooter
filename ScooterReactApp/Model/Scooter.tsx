@@ -6,7 +6,7 @@ export class Scooter {
     this.Location = Location;
   }
 
-  ToString(): String {
+  ToString(): string {
     return 'Scootername is ' + this.Name + ' | Location is ' + this.Location;
   }
 }
