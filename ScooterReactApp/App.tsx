@@ -32,11 +32,14 @@ import {
 } from '@react-navigation/native-stack';
 import type {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {Scooter} from './Model/Scooter';
-import {LogInScreen} from './LogInScreen/LogInScreen';
-
+import {LogInScreen} from './Pages/LogInScreen/LogInScreen';
+import {UpdateRideScreen} from './Pages/UpdateRide/UpdateRide';
+import {StartRideScreen} from './Pages/StartRide/StartRide';
 type RootStackParamList = {
   LogInScreen: undefined;
   TestNavigationScreen: undefined;
+  UpdateRideScreen: undefined;
+  StartRideScreen: undefined;
 };
 
 export type Props = NativeStackScreenProps<RootStackParamList>;
@@ -63,6 +66,8 @@ function App() {
           name="TestNavigationScreen"
           component={TestNavigationScreen}
         />
+        <Stack.Screen name="UpdateRideScreen" component={UpdateRideScreen} />
+        <Stack.Screen name="StartRideScreen" component={StartRideScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

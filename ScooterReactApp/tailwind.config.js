@@ -3,7 +3,7 @@ module.exports = {
   content: [
     './App.{js,jsx,ts,tsx}',
     './<custom-folder>/**/*.{js,jsx,ts,tsx}',
-    './LogInScreen/*.{js,jsx,ts,tsx}',
+    './Pages/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {},
